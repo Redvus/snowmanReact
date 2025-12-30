@@ -1,0 +1,805 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
+}
+
+.app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(45deg, #4fffb0, #00b4d8);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.game-instruction {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(79, 255, 176, 0.1);
+    border-radius: 15px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.current-question-info {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.question-counter,
+.button-status {
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.button-status .status-visible {
+    color: #4fffb0;
+    animation: blink 1.5s infinite;
+}
+
+.button-status .status-hidden {
+    color: #ff6363;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+// .snowman-section {
+//     background: rgba(255, 255, 255, 0.05);
+//     padding: 25px;
+//     border-radius: 25px;
+//     backdrop-filter: blur(10px);
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     border: 1px solid rgba(255, 255, 255, 0.1);
+// }
+
+.instructions-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.instruction-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instruction-card h3 {
+    color: #4fffb0;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.instruction-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.instruction-card li {
+    margin-bottom: 12px;
+    padding: 10px;
+    padding-left: 50px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+}
+
+.step-number {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.progress-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.dot {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.dot.completed {
+    background: linear-gradient(135deg, #4fffb0, #00b4d8);
+    color: #0f2027;
+}
+
+.dot.current {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 15px rgba(255, 126, 95, 0.5);
+}
+
+.progress-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.metric {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #a0e7ff;
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #4fffb0;
+}
+
+.metric-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.metric-fill.snowman-fill {
+    background: linear-gradient(90deg, #4fffb0, #00b4d8);
+}
+
+// .hint-container {
+//     margin-top: 25px;
+//     text-align: center;
+//     width: 100%;
+// }
+
+.hint-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 193, 7, 0.1),
+        rgba(255, 152, 0, 0.1)
+    );
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.hint-box.highlight {
+    animation: highlight 1s ease;
+    border-color: #4fffb0;
+    box-shadow: 0 0 20px rgba(79, 255, 176, 0.5);
+}
+
+@keyframes highlight {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.hint-icon {
+    font-size: 2rem;
+    animation: swing 2s infinite ease-in-out;
+}
+
+@keyframes swing {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(10deg);
+    }
+    75% {
+        transform: rotate(-10deg);
+    }
+}
+
+.hint-content {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.hint-title {
+    font-weight: bold;
+    color: #ffc107;
+    margin-bottom: 5px;
+}
+
+.hint-text {
+    color: #a0e7ff;
+    font-size: 1rem;
+}
+
+.next-part-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(79, 255, 176, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(79, 255, 176, 0.3);
+}
+
+.part-icon {
+    font-size: 1.5rem;
+}
+
+.part-text {
+    color: #4fffb0;
+    font-size: 1.1rem;
+}
+
+.random-question-button {
+    position: fixed;
+    // padding: 20px 30px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    // box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4),
+    //     0 0 0 3px rgba(255, 255, 255, 0.1), 0 0 0 6px rgba(79, 255, 176, 0.2),
+    //     0 0 0 9px rgba(255, 126, 95, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: float 3s ease-in-out infinite, glow 2s infinite alternate;
+    transform-origin: center;
+    min-width: 200px;
+}
+
+.random-question-button:hover {
+    transform: scale(1.15);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 0 6px rgba(79, 255, 176, 0.3),
+        0 0 0 9px rgba(255, 126, 95, 0.2);
+}
+
+.random-question-button:active {
+    transform: scale(0.95);
+}
+
+.question-icon {
+    font-size: 2rem;
+    animation: pulse 1.5s infinite;
+}
+
+.question-text {
+    font-weight: bold;
+    // text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: 1.2rem;
+}
+
+.question-hint-text {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(3deg);
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4),
+            0 0 0 3px rgba(255, 255, 255, 0.1),
+            0 0 0 6px rgba(79, 255, 176, 0.2), 0 0 0 9px rgba(255, 126, 95, 0.1);
+    }
+    to {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5),
+            0 0 0 3px rgba(255, 255, 255, 0.15),
+            0 0 0 6px rgba(79, 255, 176, 0.3), 0 0 0 9px rgba(255, 126, 95, 0.2);
+    }
+}
+
+.button-found-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(
+        135deg,
+        rgba(79, 255, 176, 0.2),
+        rgba(0, 180, 216, 0.2)
+    );
+    padding: 15px 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(79, 255, 176, 0.3);
+    animation: slideInRight 0.5s ease;
+    z-index: 998;
+}
+
+.found-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4fffb0;
+    font-weight: bold;
+}
+
+.found-icon {
+    font-size: 1.5rem;
+    animation: spin 1s ease;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.button-control-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 997;
+}
+
+.control-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.control-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.control-button.find-button {
+    background: linear-gradient(
+        135deg,
+        rgba(79, 255, 176, 0.3),
+        rgba(0, 180, 216, 0.3)
+    );
+}
+
+.control-button.move-button {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 193, 7, 0.3),
+        rgba(255, 152, 0, 0.3)
+    );
+}
+
+.control-button.hint-button {
+    background: linear-gradient(
+        135deg,
+        rgba(156, 39, 176, 0.3),
+        rgba(103, 58, 183, 0.3)
+    );
+}
+
+.control-icon {
+    font-size: 1.2rem;
+}
+
+.search-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 996;
+}
+
+.search-pulse {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid rgba(79, 255, 176, 0.5);
+    animation: searchPulse 2s infinite;
+    opacity: 0.5;
+}
+
+.search-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #4fffb0;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    animation: fadeInOut 3s infinite;
+}
+
+@keyframes searchPulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.completion-screen {
+    text-align: center;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    max-width: 800px;
+    margin: 50px auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.completion-screen h1 {
+    font-size: 3.2rem;
+    margin-bottom: 30px;
+}
+
+.completion-screen p {
+    font-size: 1.6rem;
+    margin: 20px 0;
+    color: #a0e7ff;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 18px 45px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    color: white;
+    box-shadow: 0 8px 20px rgba(0, 176, 155, 0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 126, 95, 0.3);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.snowman-preview {
+    margin-top: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.completion-stats {
+    margin-top: 30px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.completion-stats h3 {
+    color: #4fffb0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #a0e7ff;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #4fffb0;
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+
+    .random-question-button {
+        position: relative;
+        margin: 20px auto;
+        display: block;
+        width: calc(100% - 40px);
+        justify-content: center;
+        animation: none;
+    }
+
+    .button-control-panel {
+        flex-direction: column;
+        width: calc(100% - 40px);
+        bottom: 10px;
+    }
+
+    .button-found-indicator {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 20px auto;
+        width: calc(100% - 40px);
+    }
+
+    .search-effect {
+        display: none;
+    }
+
+    .current-question-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .game-instruction {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* Добавьте эти стили в существующий App.css */
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.reset-progress-button {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.reset-progress-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+    background: linear-gradient(135deg, #ff5252, #ff2e43);
+}
+
+.btn-reset {
+    padding: 18px 45px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+.btn-reset:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+}
+
+.reset-progress-small {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b;
+    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.reset-progress-small:hover {
+    background: rgba(255, 107, 107, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Обновляем метрики прогресса */
+.metric-fill.score-fill {
+    background: linear-gradient(90deg, #ffd166, #ff9e00);
+}

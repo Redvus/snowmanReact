@@ -1,0 +1,108 @@
+@use "breakpoints" as bp;
+
+.snowman {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-section {
+        width: 50vmin;
+        height: 50vmin;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 1rem;
+        right: 0rem;
+        z-index: 9999;
+    }
+
+    &-container {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+        // bottom: 1rem;
+        // right: 0rem;
+        // background-color: rgba(#fff, 0.2);
+
+        picture {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+
+            img {
+                width: auto;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+                object-position: bottom right;
+            }
+        }
+    }
+
+    &__part {
+        &.locked {
+            opacity: 0;
+        }
+
+        &.unlocked {
+            opacity: 1;
+        }
+    }
+
+    &-display {
+        width: 100%;
+        height: 60vmin;
+        position: relative;
+
+        .snowman__part {
+            opacity: 1;
+        }
+    }
+}
+
+#part-1 {
+    z-index: 1;
+}
+
+#part-2 {
+    z-index: 2;
+}
+
+#part-3 {
+    z-index: 3;
+}
+
+#part-4 {
+    z-index: 4;
+}
+
+#part-5 {
+    z-index: 5;
+}
+
+#part-6 {
+    z-index: 1;
+}
+
+#part-7 {
+    z-index: 6;
+}
+
+#part-8 {
+    z-index: 7;
+}
+
+#part-9 {
+    z-index: 8;
+}
+
+#part-10 {
+    z-index: 9;
+}

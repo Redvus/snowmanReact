@@ -1,0 +1,53 @@
+@use "sass:color";
+
+/*================================
+=            Colors            =
+================================*/
+
+$colors: (
+    primary: #feba8b,
+    // Оранжевый
+    secondary: #830800,
+    // #ee4c30
+    // Бордовый
+    third: #000,
+    // Темный var1: #1E252B
+    fourth: #fff,
+    five: #7a97ab,
+    six: #b60b00,
+    CWcolor: #0099cc,
+    YBcolor: #ffcc33,
+);
+
+:root {
+    @each $name, $color in $colors {
+        --#{$name}: #{$color};
+        --#{$name}-darken-5: #{color.adjust($color, $lightness: -5%)};
+        --#{$name}-darken-7: #{color.adjust($color, $lightness: -7%)};
+        --#{$name}-darken-8: #{color.adjust($color, $lightness: -8%)};
+        --#{$name}-darken-10: #{color.adjust($color, $lightness: -10%)};
+        --#{$name}-darken-13: #{color.adjust($color, $lightness: -13%)};
+        --#{$name}-darken-20: #{color.adjust($color, $lightness: -20%)};
+        --#{$name}-darken-30: #{color.adjust($color, $lightness: -30%)};
+        --#{$name}-lighten-2: #{color.adjust($color, $lightness: 2%)};
+        --#{$name}-lighten-5: #{color.adjust($color, $lightness: 5%)};
+        --#{$name}-lighten-10: #{color.adjust($color, $lightness: 10%)};
+        --#{$name}-lighten-13: #{color.adjust($color, $lightness: 13%)};
+        --#{$name}-lighten-15: #{color.adjust($color, $lightness: 15%)};
+        --#{$name}-lighten-20: #{color.adjust($color, $lightness: 20%)};
+        --#{$name}-lighten-25: #{color.adjust($color, $lightness: 25%)};
+        --#{$name}-lighten-30: #{color.adjust($color, $lightness: 30%)};
+        --#{$name}-lighten-50: #{color.adjust($color, $lightness: 50%)};
+        --#{$name}-lighten-60: #{color.adjust($color, $lightness: 60%)};
+        --#{$name}-lighten-70: #{color.adjust($color, $lightness: 70%)};
+        --#{$name}-lighten-85: #{color.adjust($color, $lightness: 85%)};
+    }
+
+    --layoutBackground: var(--primary-lighten-13);
+    --elementBackground: var(--fourth);
+
+    --error: var(--third);
+    --success: var(--fourth);
+}
+
+/*=====  End of Colors  ======*/

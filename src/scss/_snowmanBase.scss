@@ -1,0 +1,136 @@
+.snowman-container {
+    width: 300px;
+    height: 500px;
+    position: relative;
+}
+
+.snowman {
+    position: relative;
+    width: 300px;
+    height: 500px;
+}
+
+.snowman-part {
+    position: absolute;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 20px rgba(0, 150, 255, 0.3);
+}
+
+.snowman-part.locked {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+.snowman-part.unlocked {
+    background: white;
+    border: 3px solid #4fffb0;
+    box-shadow: 0 0 20px rgba(79, 255, 176, 0.5);
+}
+
+.snowman-base {
+    width: 250px;
+    height: 250px;
+    bottom: 0;
+    left: 25px;
+}
+
+.snowman-middle {
+    width: 200px;
+    height: 200px;
+    bottom: 180px;
+    left: 50px;
+}
+
+.snowman-body {
+    width: 150px;
+    height: 150px;
+    bottom: 320px;
+    left: 75px;
+}
+
+.snowman-head {
+    width: 120px;
+    height: 120px;
+    bottom: 430px;
+    left: 90px;
+}
+
+.snowman-hat {
+    width: 100px;
+    height: 80px;
+    background: #ff6b6b !important;
+    border-radius: 10px !important;
+    bottom: 510px;
+    left: 100px;
+}
+
+.snowman-eyes {
+    width: 60px;
+    height: 30px;
+    background: #333 !important;
+    border-radius: 50% !important;
+    bottom: 490px;
+    left: 120px;
+}
+
+.snowman-nose {
+    width: 40px;
+    height: 60px;
+    background: #ffa726 !important;
+    border-radius: 20px !important;
+    bottom: 470px;
+    left: 130px;
+    transform: rotate(30deg);
+}
+
+.snowman-mouth {
+    width: 80px;
+    height: 40px;
+    background: #333 !important;
+    border-radius: 50% !important;
+    bottom: 450px;
+    left: 110px;
+}
+
+.snowman-arms {
+    width: 200px;
+    height: 20px;
+    background: #8d6e63 !important;
+    border-radius: 10px !important;
+    bottom: 380px;
+    left: 50px;
+    transform: rotate(20deg);
+}
+
+.snowman-scarf {
+    width: 120px;
+    height: 30px;
+    background: #ef5350 !important;
+    border-radius: 5px !important;
+    bottom: 410px;
+    left: 90px;
+}
+
+.part-indicator {
+    font-size: 24px;
+    color: #4fffb0;
+    text-shadow: 0 0 10px rgba(79, 255, 176, 0.8);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
