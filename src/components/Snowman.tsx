@@ -44,7 +44,7 @@ const Snowman: React.FC<SnowmanProps> = ({ unlockedParts }) => {
                         {/* {unlockedParts.includes(part.id) && (
                             <span className="part-indicator">✓</span>
                         )} */}
-                        <img src={`/src/assets/games/snowman/images/${part.image}`} alt={part.name}></img>
+                        <img src={`/assets/games/snowman/images/${part.image}`} alt={part.name}></img>
                     </picture>
                 ))}
             </div>
